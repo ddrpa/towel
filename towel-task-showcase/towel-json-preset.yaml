@@ -1,0 +1,16 @@
+rows: 3
+columns:
+  - name: id
+    type: snowflake-id
+  - name: name
+    type: person-name
+  - name: contact
+    type: address
+    prefix: "浙江省衢州市"
+    province: false
+    city: false
+  - name: birthday
+    type: date
+    format: "yyyy-MM-dd"
+export:
+  preset: json

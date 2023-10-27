@@ -1,0 +1,26 @@
+rows: 20
+columns:
+  - name: 姓名
+    type: person-name
+  - name: sex
+    type: whatever
+    enums: [ '男', '女', '男', '女', '男', '女', '武装直升机' ]
+  - name: idcard
+    type: idcard
+  - name: contact
+    type: address
+    prefix: "浙江省衢州市"
+    province: false
+    city: false
+  - name: birthday
+    type: date
+    format: "yyyy-MM-dd"
+#  - name: starwars
+#    type: ddrpa:starwars-quote
+export:
+  start-of-file: "CREATE TABLE test;\n"
+  start-of-row: "INSERT INTO test VALUES ('"
+  end-of-row: "');"
+  field-delimiter: "', '"
+  row-delimiter: "\n"
+  end-of-file: "\n"
