@@ -48,7 +48,7 @@ public class SnowflakeIdGeneratorFactory implements IGeneratorFactory {
     }
 
     public static class SnowflakeIdGenerator implements IGenerator {
-        private Sequence sequence;
+        private final Sequence sequence;
 
         public SnowflakeIdGenerator(Sequence sequence) {
             this.sequence = sequence;

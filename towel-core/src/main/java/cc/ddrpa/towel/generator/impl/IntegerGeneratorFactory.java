@@ -38,7 +38,7 @@ public class IntegerGeneratorFactory implements IGeneratorFactory {
     }
 
     public static class IntegerGenerator implements IGenerator {
-        private static final SecureRandom random = new SecureRandom();
+        private final SecureRandom random = new SecureRandom();
         private final Integer origin;
         private final Integer bound;
 

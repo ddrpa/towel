@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class IDCardGenerator implements IGenerator {
-    private static final List<Pair<String, Integer>> addressCodeWithValidateSum = List.of(
+    private static final List<Pair<String, Integer>> addressCodeWithValidateSum = List.<Pair<String, Integer>>of(
             Pair.of("110100", 21), Pair.of("110101", 25), Pair.of("110102", 29),
             Pair.of("110106", 45), Pair.of("130302", 57), Pair.of("130303", 61),
             Pair.of("130534", 99), Pair.of("140122", 72), Pair.of("210700", 58),

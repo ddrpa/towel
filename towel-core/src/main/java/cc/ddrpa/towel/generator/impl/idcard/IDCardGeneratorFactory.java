@@ -5,7 +5,7 @@ import cc.ddrpa.towel.generator.IGenerator;
 import cc.ddrpa.towel.generator.IGeneratorFactory;
 
 /**
- * 身份证号码生成，可通过 https://uutool.cn/id-card/ 等在线工具验证
+ * 身份证号码生成，可通过 <a href="https://uutool.cn/id-card/">uutool</a> 等在线工具验证
  */
 public class IDCardGeneratorFactory implements IGeneratorFactory {
     private static final String name = "idcard";

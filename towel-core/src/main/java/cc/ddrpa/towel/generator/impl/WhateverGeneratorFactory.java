@@ -52,9 +52,9 @@ public class WhateverGeneratorFactory implements IGeneratorFactory {
     }
 
     public static class WhateverGenerator implements IGenerator {
-        private static final SecureRandom random = new SecureRandom();
-        private static List<String> enums;
-        private static int enumsCount;
+        private final SecureRandom random = new SecureRandom();
+        private final List<String> enums;
+        private final int enumsCount;
 
         public WhateverGenerator(List<String> enums) {
             this.enums = enums;

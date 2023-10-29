@@ -22,15 +22,11 @@ public class TaskConfiguration {
 
     public ExportDetail exportDetail() {
         String exportPreset = export.preset;
-        switch (exportPreset) {
-            case "csv":
-                return ExportDetail.csv();
-            case "json":
-                return ExportDetail.json();
-            case "sql":
-                return ExportDetail.sql();
-            default:
-                return export.detail();
-        }
+        return switch (exportPreset) {
+            case "csv" -> ExportDetail.csv();
+            case "json" -> ExportDetail.json();
+            case "sql" -> ExportDetail.sql();
+            default -> export.detail();
+        };
     }
 }
