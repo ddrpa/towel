@@ -106,19 +106,19 @@ public class CLIRunner {
         });
         // 输出到控制台
         var fieldWrapperList = makeFieldWrapperList(tableDetails.columns(), exportDetails);
-        boolean hasRowDelimiter = !exportDetails.getRowDelimiter().isEmpty();
-        boolean hasContentInStartOfRow = !exportDetails.getStartOfRow().isEmpty();
-        boolean hasContentInEndOfRow = !exportDetails.getEndOfRow().isEmpty();
+        boolean hasRowDelimiter = !exportDetails.rowDelimiter().isEmpty();
+        boolean hasContentInStartOfRow = !exportDetails.startOfRow().isEmpty();
+        boolean hasContentInEndOfRow = !exportDetails.endOfRow().isEmpty();
 
-        if (!exportDetails.getStartOfFile().isEmpty()) {
-            System.out.print(exportDetails.getStartOfFile());
+        if (!exportDetails.startOfFile().isEmpty()) {
+            System.out.print(exportDetails.startOfFile());
         }
         var rowIterator = table.stream().iterator();
         while (rowIterator.hasNext()) {
             var row = rowIterator.next();
             // 重复判断，待优化
             if (hasContentInStartOfRow) {
-                System.out.print(exportDetails.getStartOfRow());
+                System.out.print(exportDetails.startOfRow());
             }
             var rowContent = IntStream.range(0, tasks.size())
                     .mapToObj(fieldIndex -> {
@@ -126,23 +126,23 @@ public class CLIRunner {
                         Function<String, String> wrapper = fieldWrapperList.get(fieldIndex);
                         return wrapper.apply(fieldValue);
                     })
-                    .collect(Collectors.joining(exportDetails.getFieldDelimiter()));
+                    .collect(Collectors.joining(exportDetails.fieldDelimiter()));
             System.out.print(rowContent);
             // 重复判断，待优化
             if (hasContentInEndOfRow) {
-                System.out.print(exportDetails.getEndOfRow());
+                System.out.print(exportDetails.endOfRow());
             }
             if (hasRowDelimiter && rowIterator.hasNext()) {
-                System.out.print(exportDetails.getRowDelimiter());
+                System.out.print(exportDetails.rowDelimiter());
             }
         }
-        if (!exportDetails.getEndOfFile().isEmpty()) {
-            System.out.print(exportDetails.getEndOfFile());
+        if (!exportDetails.endOfFile().isEmpty()) {
+            System.out.print(exportDetails.endOfFile());
         }
     }
 
     private static List<Function<String, String>> makeFieldWrapperList(List<ColumnDetails> columnDetails, ExportDetails exportDetails) {
-        var baseFieldWrapper = exportDetails.getFieldWrapper();
+        var baseFieldWrapper = exportDetails.fieldWrapper();
         List<Function<String, String>> fieldWrapperList = new ArrayList<>(columnDetails.size());
         for (int columnIndex = 0; columnIndex < columnDetails.size(); columnIndex++) {
             var columnName = columnDetails.get(columnIndex).getColumnName();
