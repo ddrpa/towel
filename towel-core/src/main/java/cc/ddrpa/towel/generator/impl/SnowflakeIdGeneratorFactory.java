@@ -20,8 +20,8 @@ public class SnowflakeIdGeneratorFactory implements IGeneratorFactory {
 
     @Override
     public IGenerator build(ColumnDetails columnDetails) {
-        var workerId = columnDetails.getAdditionalConfig("workerId", Long.class);
-        var datacenterId = columnDetails.getAdditionalConfig("datacenterId", Long.class);
+        var workerId = columnDetails.getAdditionalConfig("worker-id", Long.class);
+        var datacenterId = columnDetails.getAdditionalConfig("datacenter-id", Long.class);
         if (workerId.isPresent() && datacenterId.isPresent()) {
             if (workerId.get() < 0 || workerId.get() > 31 || datacenterId.get() < 0 || datacenterId.get() > 31) {
                 throw new MisconfigurationException("workerId and datacenterId must between 0 and 31");
