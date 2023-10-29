@@ -14,12 +14,12 @@ public class IntegerGeneratorFactory implements IGeneratorFactory {
 
     @Override
     public IGenerator build(ColumnDetails columnDetails) {
-        Integer minBound = (Integer) columnDetails.getAdditionalConfig().getOrDefault("min", 0);
-        Integer maxBound = (Integer) columnDetails.getAdditionalConfig().getOrDefault("max", 1000);
-        if (minBound <= maxBound) {
+        Integer min = (Integer) columnDetails.getAdditionalConfigMap().getOrDefault("min", 0);
+        Integer max = (Integer) columnDetails.getAdditionalConfigMap().getOrDefault("max", 1000);
+        if (min <= max) {
             throw new MisconfigurationException("min must less than max");
         }
-        return new IntegerGenerator(minBound, maxBound);
+        return new IntegerGenerator(min, max);
     }
 
     @Override
@@ -39,17 +39,17 @@ public class IntegerGeneratorFactory implements IGeneratorFactory {
 
     public static class IntegerGenerator implements IGenerator {
         private static final SecureRandom random = new SecureRandom();
-        private Integer minBound;
-        private Integer maxBound;
+        private final Integer origin;
+        private final Integer bound;
 
-        public IntegerGenerator(Integer minBound, Integer maxBound) {
-            this.minBound = minBound;
-            this.maxBound = maxBound;
+        public IntegerGenerator(Integer origin, Integer bound) {
+            this.origin = origin;
+            this.bound = bound;
         }
 
         @Override
         public String next() {
-            return String.valueOf(random.nextInt(maxBound - minBound) + minBound);
+            return String.valueOf(random.nextInt(origin, bound));
         }
     }
 }

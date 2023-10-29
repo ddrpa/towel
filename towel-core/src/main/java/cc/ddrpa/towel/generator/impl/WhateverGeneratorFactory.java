@@ -12,7 +12,7 @@ public class WhateverGeneratorFactory implements IGeneratorFactory {
     private static final String name = "whatever";
     private static final String description = "提供一个枚举列表，我们会随机从里面抽取";
     private static final String usage = """
-            提供一个枚举列表，我们会随机从里面抽取。
+            提供一个枚举列表，towel 会随机从里面抽取
             如果你想增加某些元素出现的概率，可以多复制几个。示例：
             - name: 性别
               type: whatever
@@ -21,12 +21,12 @@ public class WhateverGeneratorFactory implements IGeneratorFactory {
 
     @Override
     public IGenerator build(ColumnDetails columnDetails) {
-        if (!columnDetails.getAdditionalConfig().containsKey("enums")) {
+        if (!columnDetails.getAdditionalConfigMap().containsKey("enums")) {
             throw new MisconfigurationException("需要提供 enums 列表参数");
         }
         List<String> enums;
         try {
-            enums = (List<String>) columnDetails.getAdditionalConfig().get("enums");
+            enums = (List<String>) columnDetails.getAdditionalConfigMap().get("enums");
         } catch (ClassCastException e) {
             throw new MisconfigurationException("enums 列表必须是字符串列表");
         }

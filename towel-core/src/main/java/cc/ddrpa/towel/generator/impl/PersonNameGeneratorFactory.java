@@ -13,7 +13,7 @@ import java.security.SecureRandom;
 public class PersonNameGeneratorFactory implements IGeneratorFactory {
     private static final String name = "person-name";
     private static final String description = "姓名";
-    private static final String usage = "Just use it.";
+    private static final String usage = "随机生成两个字或三个字的名字";
 
     @Override
     public IGenerator build(ColumnDetails columnDetails) {

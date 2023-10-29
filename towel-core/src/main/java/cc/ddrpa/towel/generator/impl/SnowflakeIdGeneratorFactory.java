@@ -2,21 +2,30 @@ package cc.ddrpa.towel.generator.impl;
 
 import cc.ddrpa.repack.sequence.Sequence;
 import cc.ddrpa.towel.ColumnDetails;
+import cc.ddrpa.towel.exception.MisconfigurationException;
 import cc.ddrpa.towel.generator.IGenerator;
 import cc.ddrpa.towel.generator.IGeneratorFactory;
-
-import java.util.Optional;
 
 public class SnowflakeIdGeneratorFactory implements IGeneratorFactory {
     private static final String name = "snowflake-id";
     private static final String description = "雪花 ID";
-    private static final String usage = "Just use it.";
+    private static final String usage = """
+            随机生成雪花 ID，可以自定义 workerID 和 datacenterID，使用：
+            worker-id
+            datacenter-id
+            注意，根据雪花算法，workerID 和 datacenterID 必须在 0 - 31 之间
+            注意，需要同时指定 workerID 和 datacenterID，否则会使用 Sequence 计算的默认值
+            注意，根据 towel 计算列的运行机制，有大概率得到连续的 ID
+            """;
 
     @Override
     public IGenerator build(ColumnDetails columnDetails) {
-        Optional<Long> workerId = Optional.ofNullable((Long) columnDetails.getAdditionalConfig().get("workerId"));
-        Optional<Long> datacenterId = Optional.ofNullable((Long) columnDetails.getAdditionalConfig().get("datacenterId"));
+        var workerId = columnDetails.getAdditionalConfig("workerId", Long.class);
+        var datacenterId = columnDetails.getAdditionalConfig("datacenterId", Long.class);
         if (workerId.isPresent() && datacenterId.isPresent()) {
+            if (workerId.get() < 0 || workerId.get() > 31 || datacenterId.get() < 0 || datacenterId.get() > 31) {
+                throw new MisconfigurationException("workerId and datacenterId must between 0 and 31");
+            }
             return new SnowflakeIdGenerator(new Sequence(workerId.get(), datacenterId.get()));
         } else {
             return new SnowflakeIdGenerator(new Sequence());

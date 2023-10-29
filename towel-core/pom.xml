@@ -12,7 +12,8 @@
     <name>towel-core</name>
 
     <properties>
-        <hibernate.validator.version>7.0.1.Final</hibernate.validator.version>
+        <hibernate.validator.version>8.0.0.Final</hibernate.validator.version>
+        <apache.common-lang3.version>3.13.0</apache.common-lang3.version>
     </properties>
 
     <dependencies>
@@ -25,6 +26,17 @@
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate.validator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache.common-lang3.version}</version>
         </dependency>
     </dependencies>
 </project>

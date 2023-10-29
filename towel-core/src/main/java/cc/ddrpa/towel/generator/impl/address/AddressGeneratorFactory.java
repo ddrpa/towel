@@ -28,11 +28,11 @@ public class AddressGeneratorFactory implements IGeneratorFactory {
     @Override
     public IGenerator build(ColumnDetails columnDetails) {
         return new AddressGenerator(
-                (Boolean) columnDetails.getAdditionalConfig().getOrDefault("province", true),
-                (Boolean) columnDetails.getAdditionalConfig().getOrDefault("city", true),
-                (Boolean) columnDetails.getAdditionalConfig().getOrDefault("district", true),
-                (Boolean) columnDetails.getAdditionalConfig().getOrDefault("street", true),
-                (Boolean) columnDetails.getAdditionalConfig().getOrDefault("streetNumbers", true));
+                (Boolean) columnDetails.getAdditionalConfigMap().getOrDefault("province", true),
+                (Boolean) columnDetails.getAdditionalConfigMap().getOrDefault("city", true),
+                (Boolean) columnDetails.getAdditionalConfigMap().getOrDefault("district", true),
+                (Boolean) columnDetails.getAdditionalConfigMap().getOrDefault("street", true),
+                (Boolean) columnDetails.getAdditionalConfigMap().getOrDefault("streetNumbers", true));
     }
 
     @Override
