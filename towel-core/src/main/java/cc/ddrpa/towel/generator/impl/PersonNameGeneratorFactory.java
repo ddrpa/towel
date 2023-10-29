@@ -1,6 +1,6 @@
 package cc.ddrpa.towel.generator.impl;
 
-import cc.ddrpa.towel.ColumnDetails;
+import cc.ddrpa.towel.ColumnDetail;
 import cc.ddrpa.towel.generator.IGenerator;
 import cc.ddrpa.towel.generator.IGeneratorFactory;
 
@@ -16,7 +16,7 @@ public class PersonNameGeneratorFactory implements IGeneratorFactory {
     private static final String usage = "随机生成两个字或三个字的名字";
 
     @Override
-    public IGenerator build(ColumnDetails columnDetails) {
+    public IGenerator build(ColumnDetail columnDetail) {
         return new PersonNameGenerator();
     }
 

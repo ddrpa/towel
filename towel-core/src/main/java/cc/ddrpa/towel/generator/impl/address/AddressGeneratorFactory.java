@@ -1,6 +1,6 @@
 package cc.ddrpa.towel.generator.impl.address;
 
-import cc.ddrpa.towel.ColumnDetails;
+import cc.ddrpa.towel.ColumnDetail;
 import cc.ddrpa.towel.generator.IGenerator;
 import cc.ddrpa.towel.generator.IGeneratorFactory;
 
@@ -26,13 +26,13 @@ public class AddressGeneratorFactory implements IGeneratorFactory {
             """;
 
     @Override
-    public IGenerator build(ColumnDetails columnDetails) {
+    public IGenerator build(ColumnDetail columnDetail) {
         return new AddressGenerator(
-                (Boolean) columnDetails.getAdditionalConfigMap().getOrDefault("province", true),
-                (Boolean) columnDetails.getAdditionalConfigMap().getOrDefault("city", true),
-                (Boolean) columnDetails.getAdditionalConfigMap().getOrDefault("district", true),
-                (Boolean) columnDetails.getAdditionalConfigMap().getOrDefault("street", true),
-                (Boolean) columnDetails.getAdditionalConfigMap().getOrDefault("streetNumbers", true));
+                (Boolean) columnDetail.getAdditionalConfigMap().getOrDefault("province", true),
+                (Boolean) columnDetail.getAdditionalConfigMap().getOrDefault("city", true),
+                (Boolean) columnDetail.getAdditionalConfigMap().getOrDefault("district", true),
+                (Boolean) columnDetail.getAdditionalConfigMap().getOrDefault("street", true),
+                (Boolean) columnDetail.getAdditionalConfigMap().getOrDefault("streetNumbers", true));
     }
 
     @Override

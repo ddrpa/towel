@@ -1,7 +1,7 @@
 package cc.ddrpa.towel.configuration;
 
-import cc.ddrpa.towel.ExportDetails;
-import cc.ddrpa.towel.TableDetails;
+import cc.ddrpa.towel.ExportDetail;
+import cc.ddrpa.towel.TableDetail;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -16,21 +16,21 @@ public class TaskConfiguration {
     @JsonAlias("export")
     public ExportConfiguration export;
 
-    public TableDetails tableDetails() {
-        return new TableDetails(columns.stream().map(ColumnConfiguration::details).toList(), rows);
+    public TableDetail tableDetail() {
+        return new TableDetail(columns.stream().map(ColumnConfiguration::detail).toList(), rows);
     }
 
-    public ExportDetails exportDetails() {
+    public ExportDetail exportDetail() {
         String exportPreset = export.preset;
         switch (exportPreset) {
             case "csv":
-                return ExportDetails.csv();
+                return ExportDetail.csv();
             case "json":
-                return ExportDetails.json();
+                return ExportDetail.json();
             case "sql":
-                return ExportDetails.sql();
+                return ExportDetail.sql();
             default:
-                return export.details();
+                return export.detail();
         }
     }
 }

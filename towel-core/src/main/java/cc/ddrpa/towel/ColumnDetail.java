@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class ColumnDetails {
+public class ColumnDetail {
     private final String columnName;
     private final String generatorIdentifier;
     private final Boolean hasPrefix;
@@ -16,11 +16,11 @@ public class ColumnDetails {
     private final String fieldSuffix;
     private final Map<String, Object> additionalConfig;
 
-    public ColumnDetails(@NotBlank String columnName,
-                         @NotBlank String generatorIdentifier,
-                         @NotBlank String fieldPrefix,
-                         @NotBlank String fieldSuffix,
-                         @NotNull Map<String, Object> additionalConfig) {
+    public ColumnDetail(@NotBlank String columnName,
+                        @NotBlank String generatorIdentifier,
+                        @NotBlank String fieldPrefix,
+                        @NotBlank String fieldSuffix,
+                        @NotNull Map<String, Object> additionalConfig) {
         this.columnName = columnName;
         this.generatorIdentifier = generatorIdentifier;
         this.fieldPrefix = fieldPrefix;

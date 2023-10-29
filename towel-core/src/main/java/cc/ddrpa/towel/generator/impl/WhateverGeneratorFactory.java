@@ -1,6 +1,6 @@
 package cc.ddrpa.towel.generator.impl;
 
-import cc.ddrpa.towel.ColumnDetails;
+import cc.ddrpa.towel.ColumnDetail;
 import cc.ddrpa.towel.exception.MisconfigurationException;
 import cc.ddrpa.towel.generator.IGenerator;
 import cc.ddrpa.towel.generator.IGeneratorFactory;
@@ -20,13 +20,13 @@ public class WhateverGeneratorFactory implements IGeneratorFactory {
               """;
 
     @Override
-    public IGenerator build(ColumnDetails columnDetails) {
-        if (!columnDetails.getAdditionalConfigMap().containsKey("enums")) {
+    public IGenerator build(ColumnDetail columnDetail) {
+        if (!columnDetail.getAdditionalConfigMap().containsKey("enums")) {
             throw new MisconfigurationException("需要提供 enums 列表参数");
         }
         List<String> enums;
         try {
-            enums = (List<String>) columnDetails.getAdditionalConfigMap().get("enums");
+            enums = (List<String>) columnDetail.getAdditionalConfigMap().get("enums");
         } catch (ClassCastException e) {
             throw new MisconfigurationException("enums 列表必须是字符串列表");
         }

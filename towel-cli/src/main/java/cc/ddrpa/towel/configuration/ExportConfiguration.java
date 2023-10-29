@@ -1,6 +1,6 @@
 package cc.ddrpa.towel.configuration;
 
-import cc.ddrpa.towel.ExportDetails;
+import cc.ddrpa.towel.ExportDetail;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 import java.util.function.BiFunction;
@@ -30,7 +30,7 @@ public class ExportConfiguration {
     @JsonAlias("field-close-quote")
     public String fieldCloseQuote = "";
 
-    public ExportDetails details() {
+    public ExportDetail detail() {
         BiFunction<String, String, String> fieldWrapper;
         Function<String, String> openQuoteSetter;
         Function<String, String> closeQuoteSetter;
@@ -45,6 +45,6 @@ public class ExportConfiguration {
             closeQuoteSetter = (s) -> fieldCloseQuote;
         }
         fieldWrapper = (column, field) -> openQuoteSetter.apply(column).replaceAll("%%", "%") + field + closeQuoteSetter.apply(column).replaceAll("%%", "%");
-        return new ExportDetails(startOfFile, endOfFile, startOfRow, endOfRow, fieldDelimiter, rowDelimiter, fieldWrapper);
+        return new ExportDetail(startOfFile, endOfFile, startOfRow, endOfRow, fieldDelimiter, rowDelimiter, fieldWrapper);
     }
 }

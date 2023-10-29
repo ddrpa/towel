@@ -1,9 +1,9 @@
 package cc.ddrpa.towel.generator;
 
-import cc.ddrpa.towel.ColumnDetails;
+import cc.ddrpa.towel.ColumnDetail;
 
 public interface IGeneratorFactory {
-    IGenerator build(ColumnDetails columnDetails);
+    IGenerator build(ColumnDetail columnDetail);
 
     String getName();
 

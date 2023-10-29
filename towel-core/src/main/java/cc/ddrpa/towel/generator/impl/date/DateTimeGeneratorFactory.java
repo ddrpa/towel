@@ -1,6 +1,6 @@
 package cc.ddrpa.towel.generator.impl.date;
 
-import cc.ddrpa.towel.ColumnDetails;
+import cc.ddrpa.towel.ColumnDetail;
 import cc.ddrpa.towel.exception.MisconfigurationException;
 import cc.ddrpa.towel.generator.IGenerator;
 import cc.ddrpa.towel.generator.IGeneratorFactory;
@@ -33,10 +33,10 @@ public class DateTimeGeneratorFactory implements IGeneratorFactory {
             """;
 
     @Override
-    public IGenerator build(ColumnDetails columnDetails) {
+    public IGenerator build(ColumnDetail columnDetail) {
         // setup datetime format config
         var datetimeFormatter = defaultDatetimeFormatter;
-        var dateTimeFormat = columnDetails.getAdditionalConfig("format", String.class);
+        var dateTimeFormat = columnDetail.getAdditionalConfig("format", String.class);
         if (dateTimeFormat.isPresent() && !dateTimeFormat.get().isBlank()) {
             try {
                 datetimeFormatter = DateTimeFormatter.ofPattern(dateTimeFormat.get());
@@ -46,7 +46,7 @@ public class DateTimeGeneratorFactory implements IGeneratorFactory {
         }
         // setup earliest datetime
         var notBeforeAsEpochSecond = defaultEarliestEpochSecond;
-        var minDateConfig = columnDetails.getAdditionalConfig("not-before", String.class);
+        var minDateConfig = columnDetail.getAdditionalConfig("not-before", String.class);
         if (minDateConfig.isPresent() && !minDateConfig.get().isBlank()) {
             try {
                 var notBefore = LocalDate.parse(minDateConfig.get());
@@ -57,7 +57,7 @@ public class DateTimeGeneratorFactory implements IGeneratorFactory {
         }
         // setup latest datetime
         var notAfterAsEpochSecond = defaultLatestEpochSecond;
-        var maxDateConfig = columnDetails.getAdditionalConfig("not-after", String.class);
+        var maxDateConfig = columnDetail.getAdditionalConfig("not-after", String.class);
         if (maxDateConfig.isPresent() && !maxDateConfig.get().isBlank()) {
             try {
                 var notAfter = LocalDate.parse(maxDateConfig.get());

@@ -1,7 +1,7 @@
 package cc.ddrpa.towel.generator.impl;
 
 import cc.ddrpa.repack.sequence.Sequence;
-import cc.ddrpa.towel.ColumnDetails;
+import cc.ddrpa.towel.ColumnDetail;
 import cc.ddrpa.towel.exception.MisconfigurationException;
 import cc.ddrpa.towel.generator.IGenerator;
 import cc.ddrpa.towel.generator.IGeneratorFactory;
@@ -19,9 +19,9 @@ public class SnowflakeIdGeneratorFactory implements IGeneratorFactory {
             """;
 
     @Override
-    public IGenerator build(ColumnDetails columnDetails) {
-        var workerId = columnDetails.getAdditionalConfig("worker-id", Long.class);
-        var datacenterId = columnDetails.getAdditionalConfig("datacenter-id", Long.class);
+    public IGenerator build(ColumnDetail columnDetail) {
+        var workerId = columnDetail.getAdditionalConfig("worker-id", Long.class);
+        var datacenterId = columnDetail.getAdditionalConfig("datacenter-id", Long.class);
         if (workerId.isPresent() && datacenterId.isPresent()) {
             if (workerId.get() < 0 || workerId.get() > 31 || datacenterId.get() < 0 || datacenterId.get() > 31) {
                 throw new MisconfigurationException("workerId and datacenterId must between 0 and 31");

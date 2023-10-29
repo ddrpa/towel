@@ -1,6 +1,6 @@
 package cc.ddrpa.towel.generator.impl;
 
-import cc.ddrpa.towel.ColumnDetails;
+import cc.ddrpa.towel.ColumnDetail;
 import cc.ddrpa.towel.exception.MisconfigurationException;
 import cc.ddrpa.towel.generator.IGenerator;
 import cc.ddrpa.towel.generator.IGeneratorFactory;
@@ -13,9 +13,9 @@ public class IntegerGeneratorFactory implements IGeneratorFactory {
     private static final String usage = "使用 min 和 max 设置范围，默认使用 0 - 1000";
 
     @Override
-    public IGenerator build(ColumnDetails columnDetails) {
-        Integer min = (Integer) columnDetails.getAdditionalConfigMap().getOrDefault("min", 0);
-        Integer max = (Integer) columnDetails.getAdditionalConfigMap().getOrDefault("max", 1000);
+    public IGenerator build(ColumnDetail columnDetail) {
+        Integer min = (Integer) columnDetail.getAdditionalConfigMap().getOrDefault("min", 0);
+        Integer max = (Integer) columnDetail.getAdditionalConfigMap().getOrDefault("max", 1000);
         if (min <= max) {
             throw new MisconfigurationException("min must less than max");
         }

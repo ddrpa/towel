@@ -1,6 +1,6 @@
 package cc.ddrpa.towel.generator.impl.idcard;
 
-import cc.ddrpa.towel.ColumnDetails;
+import cc.ddrpa.towel.ColumnDetail;
 import cc.ddrpa.towel.generator.IGenerator;
 import cc.ddrpa.towel.generator.IGeneratorFactory;
 
@@ -17,7 +17,7 @@ public class IDCardGeneratorFactory implements IGeneratorFactory {
             """;
 
     @Override
-    public IGenerator build(ColumnDetails columnDetails) {
+    public IGenerator build(ColumnDetail columnDetail) {
         return new IDCardGenerator();
     }
 

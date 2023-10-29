@@ -1,6 +1,6 @@
 package cc.ddrpa.towel.configuration;
 
-import cc.ddrpa.towel.ColumnDetails;
+import cc.ddrpa.towel.ColumnDetail;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -24,7 +24,7 @@ public class ColumnConfiguration {
     @JsonAnySetter
     public Map<String, Object> additional = new LinkedHashMap<>();
 
-    public ColumnDetails details() {
-        return new ColumnDetails(columnName, generatorIdentifier, fieldPrefix, fieldSuffix, additional);
+    public ColumnDetail detail() {
+        return new ColumnDetail(columnName, generatorIdentifier, fieldPrefix, fieldSuffix, additional);
     }
 }

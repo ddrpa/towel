@@ -81,10 +81,10 @@ public class CLIRunner {
     private static void randomStuff(Path towelPath) throws IOException {
         // load task yaml
         TaskConfiguration taskConfig = loadTaskConfiguration(towelPath);
-        TableDetails tableDetails = taskConfig.tableDetails();
-        ExportDetails exportDetails = taskConfig.exportDetails();
+        TableDetail tableDetail = taskConfig.tableDetail();
+        ExportDetail exportDetail = taskConfig.exportDetail();
         // 根据配置创建随机器
-        var tasks = tableDetails.columns().stream()
+        var tasks = tableDetail.columns().stream()
                 .map(columnDetails -> {
                     var factory = factoryInstanceMap.get(columnDetails.getGeneratorIdentifier());
                     if (null == factory) {
@@ -99,26 +99,26 @@ public class CLIRunner {
         tasks.forEach(task -> {
             var columnValueWrapper = task.ValueWrapper();
             var columnValueGenerator = task.generator();
-            var dataSlice = IntStream.range(0, tableDetails.rows())
+            var dataSlice = IntStream.range(0, tableDetail.rows())
                     .mapToObj(rowIndex -> columnValueWrapper.apply(columnValueGenerator.next()))
                     .toArray(String[]::new);
             table.addColumns(StringColumn.create(task.columnName(), dataSlice));
         });
         // 输出到控制台
-        var fieldWrapperList = makeFieldWrapperList(tableDetails.columns(), exportDetails);
-        boolean hasRowDelimiter = !exportDetails.rowDelimiter().isEmpty();
-        boolean hasContentInStartOfRow = !exportDetails.startOfRow().isEmpty();
-        boolean hasContentInEndOfRow = !exportDetails.endOfRow().isEmpty();
+        var fieldWrapperList = makeFieldWrapperList(tableDetail.columns(), exportDetail);
+        boolean hasRowDelimiter = !exportDetail.rowDelimiter().isEmpty();
+        boolean hasContentInStartOfRow = !exportDetail.startOfRow().isEmpty();
+        boolean hasContentInEndOfRow = !exportDetail.endOfRow().isEmpty();
 
-        if (!exportDetails.startOfFile().isEmpty()) {
-            System.out.print(exportDetails.startOfFile());
+        if (!exportDetail.startOfFile().isEmpty()) {
+            System.out.print(exportDetail.startOfFile());
         }
         var rowIterator = table.stream().iterator();
         while (rowIterator.hasNext()) {
             var row = rowIterator.next();
             // 重复判断，待优化
             if (hasContentInStartOfRow) {
-                System.out.print(exportDetails.startOfRow());
+                System.out.print(exportDetail.startOfRow());
             }
             var rowContent = IntStream.range(0, tasks.size())
                     .mapToObj(fieldIndex -> {
@@ -126,23 +126,23 @@ public class CLIRunner {
                         Function<String, String> wrapper = fieldWrapperList.get(fieldIndex);
                         return wrapper.apply(fieldValue);
                     })
-                    .collect(Collectors.joining(exportDetails.fieldDelimiter()));
+                    .collect(Collectors.joining(exportDetail.fieldDelimiter()));
             System.out.print(rowContent);
             // 重复判断，待优化
             if (hasContentInEndOfRow) {
-                System.out.print(exportDetails.endOfRow());
+                System.out.print(exportDetail.endOfRow());
             }
             if (hasRowDelimiter && rowIterator.hasNext()) {
-                System.out.print(exportDetails.rowDelimiter());
+                System.out.print(exportDetail.rowDelimiter());
             }
         }
-        if (!exportDetails.endOfFile().isEmpty()) {
-            System.out.print(exportDetails.endOfFile());
+        if (!exportDetail.endOfFile().isEmpty()) {
+            System.out.print(exportDetail.endOfFile());
         }
     }
 
-    private static List<Function<String, String>> makeFieldWrapperList(List<ColumnDetails> columnDetails, ExportDetails exportDetails) {
-        var baseFieldWrapper = exportDetails.fieldWrapper();
+    private static List<Function<String, String>> makeFieldWrapperList(List<ColumnDetail> columnDetails, ExportDetail exportDetail) {
+        var baseFieldWrapper = exportDetail.fieldWrapper();
         List<Function<String, String>> fieldWrapperList = new ArrayList<>(columnDetails.size());
         for (int columnIndex = 0; columnIndex < columnDetails.size(); columnIndex++) {
             var columnName = columnDetails.get(columnIndex).getColumnName();

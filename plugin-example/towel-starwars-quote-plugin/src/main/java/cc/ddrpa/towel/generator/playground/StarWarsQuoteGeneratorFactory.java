@@ -1,6 +1,6 @@
 package cc.ddrpa.towel.generator.playground;
 
-import cc.ddrpa.towel.ColumnDetails;
+import cc.ddrpa.towel.ColumnDetail;
 import cc.ddrpa.towel.generator.IGenerator;
 import cc.ddrpa.towel.generator.IGeneratorFactory;
 
@@ -11,7 +11,7 @@ public class StarWarsQuoteGeneratorFactory implements IGeneratorFactory {
     private static final String usage = "just do it.";
 
     @Override
-    public IGenerator build(ColumnDetails columnDetails) {
+    public IGenerator build(ColumnDetail columnDetail) {
         return new StarWarsQuoteGenerator();
     }
 

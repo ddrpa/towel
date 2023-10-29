@@ -143,7 +143,7 @@ towel 已经内置了大部分常用的随机数据类型，如果您需要的�
 您需要在 `cc.ddrpa.towel.generator` package 下为 `cc.ddrpa.towel.generator.IGeneratorFactory` 接口实现工厂类。这个工厂类将会负责：
 
 - 返回插件的名称（以便在 `towel.yaml` 中指定），最好以 `author:data-type` 命名
-- 接受 `cc.ddrpa.towel.ColumnDetails` 类型的用户配置（其中自定义配置都会放在 `Map<String, Object> additionalConfig` 中）并创建生成器实例
+- 接受 `cc.ddrpa.towel.ColumnDetail` 类型的用户配置（其中自定义配置都会放在 `Map<String, Object> additionalConfig` 中）并创建生成器实例
 - 通过 `String getDescription()` 和 `String getUsage()` 返回友好的简介和使用说明
 
 生成器没有特别的要求，只需要实现 `cc.ddrpa.towel.generator.IGenerator` 接口，其中的 `next()` 方法每次调用会返回一个数据。
