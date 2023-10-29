@@ -1,7 +1,5 @@
 rows: 3
 columns:
-  - name: id
-    type: snowflake-id
   - name: name
     type: person-name
   - name: contact
@@ -11,6 +9,8 @@ columns:
     city: false
   - name: birthday
     type: date
+    not-before: 2020-01-01
+    not-after: 2020-12-31
     format: "yyyy-MM-dd"
 export:
   preset: json
