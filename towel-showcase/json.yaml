@@ -2,6 +2,8 @@ rows: 3
 columns:
   - name: id
     type: snowflake-id
+  - name: cell
+    type: cell-phone
   - name: name
     type: person-name
   - name: contact
